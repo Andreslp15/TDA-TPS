@@ -1,5 +1,3 @@
-import sys
-
 def es_compatible(prenda, lavarropas, incompatibilidades):
     for otra_prenda in lavarropas:
         if otra_prenda in incompatibilidades[prenda]:
@@ -167,11 +165,21 @@ def ordenar_prendas_por_grado(cant_prendas, incompatibilidades):
 
     return pendientes_por_grado
 
+def generar_etiqueta(indice):
+    etiqueta = ""
+    numero = indice + 1
+
+    while numero > 0:
+        numero, resto = divmod(numero - 1, 26)
+        etiqueta = chr(ord("A") + resto) + etiqueta
+
+    return etiqueta
+
 def construir_resultado(asignacion):
     resultado = []
     for prenda in sorted(asignacion.keys()):
         idx_lav = asignacion[prenda]
-        resultado.append((prenda, idx_lav + 1))
+        resultado.append((prenda, generar_etiqueta(idx_lav)))
 
     return resultado
 
